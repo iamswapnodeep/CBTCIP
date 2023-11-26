@@ -38,12 +38,10 @@ def play_game():
             print("It's a tie !")
         elif (user_choice == 'rock' and com_choice == 'scissors') or (user_choice == 'paper' and com_choice == 'rock') or (user_choice == 'scissors' and com_choice == 'paper'):
             player_score+=1
-            print("You WON !")
         else:
             com_score+=1
-            print("Computer WON !")
 
-        print("Score:Player: {} | Computer: {}".format(player_score, com_score))
+        print("Score: Player: {} | Computer: {}".format(player_score, com_score))
         print("-"*30)
 
     if com_score == player_score:
