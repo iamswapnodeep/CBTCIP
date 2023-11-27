@@ -10,27 +10,32 @@ Two players play the game against each other; let's assume Player 1 and Player 2
 
 import random
 
-correct_digits = []
-
 # Generates a secret number:
-def generate_secret_no(digits):
-    number =""
-    for digit in range(digits):
-        number += str(random.randint(0,9))
-    return int(number)
+def generate_secret_no():
+    digits = int(input("Enter no. of digits: "))
+    if digits <= 0:
+        print("Invalid Input! Please try again.")
+        number = generate_secret_no()
+    else:
+        min = 10 ** (digits - 1)
+        max = (10 ** digits) - 1
+        number = random.randint(min, max)
+
+    return number, digits
 
 # User Input:
 def input_from_user(digit):
-    num = input(f"Enter a number of {digit} digits: ")
-    return int(num)
+    number = input(f"Enter a number of {digit} digits: ")
+    
+    return int(number)
 
 # Guess the secret number:
 def check_similar_digits(secret, user):
-    for digit in range(len(user)):
-        if secret[digit] == user[digit]:
-            correct_digits.append(secret[digit])
+    secret_number_set = set(secret)
+    user_number_set = set(user)
+    correct_digits = secret_number_set.intersection(user_number_set)
 
-    return f"The correct digits are: {correct_digits}"
+    return f"The correct digits are: {list(correct_digits)}"
 
 # Check Result:
 def check_result(secret, user):
@@ -46,8 +51,7 @@ def check_result(secret, user):
     return result
 
 #Main Game:
-digit_in_number = int(input("Enter no. of digits: "))
-secret_number = generate_secret_no(digit_in_number)
+secret_number, digit_in_number = generate_secret_no()
 print(f"A {digit_in_number} digit number has been generated.")
 
 player_guess = input_from_user(digit_in_number)
