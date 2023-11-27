@@ -12,50 +12,55 @@ import random
 
 # Generates a secret number:
 def generate_secret_no():
-    digits = int(input("Enter no. of digits: "))
-    if digits <= 0:
-        print("Invalid Input! Please try again.")
-        number = generate_secret_no()
-    else:
-        min = 10 ** (digits - 1)
-        max = (10 ** digits) - 1
-        number = random.randint(min, max)
-
+    while True:
+        digits = int(input("Enter no. of digits: "))
+        if digits <= 0:
+            print("Invalid Input! Please try again.")
+            continue
+        break
+    min = 10 ** (digits - 1)
+    max = (10 ** digits) - 1
+    number = random.randint(min, max)
     return number, digits
 
 # User Input:
 def input_from_user(digit):
     number = input(f"Enter a number of {digit} digits: ")
-    
     return int(number)
 
 # Guess the secret number:
 def check_similar_digits(secret, user):
-    secret_number_set = set(secret)
-    user_number_set = set(user)
+    secret_number_set = set(str(secret))
+    user_number_set = set(str(user))
     correct_digits = secret_number_set.intersection(user_number_set)
-
-    return f"The correct digits are: {list(correct_digits)}"
+    return correct_digits
 
 # Check Result:
-def check_result(secret, user):
+'''def check_result(secret, user):
     if secret == user:
         result = "User has been crowned MASTERMIND !"
     else:
-        similar_digits = check_similar_digits(str(secret), str(user))
-        print(similar_digits)
+        similar_digits = check_similar_digits(secret, user)
+        print(f"The correct digits are: {list(similar_digits)}")
         if secret != user:
             user = input_from_user(digit_in_number)
             result = check_result(str(secret), str(user))
-
-    return result
-
+    return result'''
+def no_of_rounds(secret, user):
+    count = 0
+    while secret != user:
+        count += 1
+        similar_digits = check_similar_digits(secret, user)
+        print(f"The correct digits are: {list(similar_digits)}")
+        user = input_from_user(digit_in_number)
+        
+    return count + 1
 #Main Game:
 secret_number, digit_in_number = generate_secret_no()
 print(f"A {digit_in_number} digit number has been generated.")
 
 player_guess = input_from_user(digit_in_number)
 
-result = check_result(secret_number , player_guess)
+rounds = no_of_rounds(secret_number , player_guess)
 
-print(result)
+print(f"Player got the correct number in {rounds} rounds")
