@@ -36,16 +36,6 @@ def check_similar_digits(secret, user):
     return correct_digits
 
 # Check Result:
-'''def check_result(secret, user):
-    if secret == user:
-        result = "User has been crowned MASTERMIND !"
-    else:
-        similar_digits = check_similar_digits(secret, user)
-        print(f"The correct digits are: {list(similar_digits)}")
-        if secret != user:
-            user = input_from_user(digit_in_number)
-            result = check_result(str(secret), str(user))
-    return result'''
 def no_of_rounds(secret, user):
     count = 0
     while secret != user:
