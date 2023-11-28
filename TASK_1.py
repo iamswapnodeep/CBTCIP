@@ -38,13 +38,13 @@ def check_similar_digits(secret, user):
     return correct_digits
 
 # Check Result:
-def no_of_rounds(secret, user, digits):
+def no_of_rounds(secret, user):
     round = 0
     while secret != user:
         round += 1
         similar_digits = check_similar_digits(secret, user)
         print(f"The correct digits are: {list(similar_digits)}")
-        user = input_from_user(digits)
+        user = input_from_user(digit_in_number)
         
     return round + 1
 
@@ -54,12 +54,13 @@ def play_game(digits):
     os.system('cls')
     print("Secret number of {} digits is set. Start guessing the number...".format(digits))
     guess = input_from_user(digits)
-    rounds = no_of_rounds(secret_number , guess, digits)
+    rounds = no_of_rounds(secret_number , guess)
     
     return rounds
 
 # Main:
 def main():
+    global digit_in_number
     digit_in_number = input_digits()
     print("Player 1 will set the number and Player 2 will guess.")
     player_2 = play_game(digit_in_number)
@@ -73,14 +74,14 @@ def main():
         print("Player 2 will set the number and Player 1 will guess.")
         player_1 = play_game(digit_in_number)
     
-    print(f"Player 1 succeed in {player_1} round.")
-    print("-"*50)
-    if player_1 > player_2:
-        print(f"Player 1: {player_1} | Player 2: {player_2}\nPlayer 2 is crowned MASTERMIND !")
-    elif player_2 > player_1:
-        print(f"Player 1: {player_1} | Player 2: {player_2}\nPlayer 1 is crowned MASTERMIND !")
-    else:
-        print(f"Player 1: {player_1} | Player 2: {player_2}\nIt's a tie!")
+        print(f"Player 1 succeed in {player_1} round.")
+        print("-"*50)
+        if player_1 > player_2:
+            print(f"Player 1: {player_1} | Player 2: {player_2}\nPlayer 2 is crowned MASTERMIND !")
+        elif player_2 > player_1:
+            print(f"Player 1: {player_1} | Player 2: {player_2}\nPlayer 1 is crowned MASTERMIND !")
+        else:
+            print(f"Player 1: {player_1} | Player 2: {player_2}\nIt's a tie!")
 
 if __name__ == "__main__":
-    play_game()
+    main()
