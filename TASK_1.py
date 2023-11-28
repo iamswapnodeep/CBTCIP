@@ -38,39 +38,40 @@ def check_similar_digits(secret, user):
     return correct_digits
 
 # Check Result:
-def no_of_rounds(secret, user):
-    count = 0
+def no_of_rounds(secret, user, digits):
+    round = 0
     while secret != user:
-        count += 1
+        round += 1
         similar_digits = check_similar_digits(secret, user)
         print(f"The correct digits are: {list(similar_digits)}")
-        user = input_from_user(digit_in_number)
+        user = input_from_user(digits)
         
-    return count + 1
+    return round + 1
 
 # Game Starts here:
 def play_game(digits):
     secret_number = input_from_user(digits)
     os.system('cls')
     print("Secret number of {} digits is set. Start guessing the number...".format(digits))
-    guess = input_from_user(digit_in_number)
-    rounds = no_of_rounds(secret_number , guess)
+    guess = input_from_user(digits)
+    rounds = no_of_rounds(secret_number , guess, digits)
     
     return rounds
 
 # Main:
-digit_in_number = input_digits()
-print("Player 1 will set the number and Player 2 will guess.")
-player_2 = play_game(digit_in_number)
+def main():
+    digit_in_number = input_digits()
+    print("Player 1 will set the number and Player 2 will guess.")
+    player_2 = play_game(digit_in_number)
 
-print(f"Player 2 succeed in {player_2} round.")
-print("-"*50)
+    print(f"Player 2 succeed in {player_2} round.")
+    print("-"*50)
 
-if player_2 == 1:
-    print("Player 2 is crowned MASTERMIND !")
-else:
-    print("Player 2 will set the number and Player 1 will guess.")
-    player_1 = play_game(digit_in_number)
+    if player_2 == 1:
+        print("Player 2 is crowned MASTERMIND !")
+    else:
+        print("Player 2 will set the number and Player 1 will guess.")
+        player_1 = play_game(digit_in_number)
     
     print(f"Player 1 succeed in {player_1} round.")
     print("-"*50)
@@ -80,3 +81,6 @@ else:
         print(f"Player 1: {player_1} | Player 2: {player_2}\nPlayer 1 is crowned MASTERMIND !")
     else:
         print(f"Player 1: {player_1} | Player 2: {player_2}\nIt's a tie!")
+
+if __name__ == "__main__":
+    play_game()
