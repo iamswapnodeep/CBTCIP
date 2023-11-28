@@ -7,25 +7,26 @@ Two players play the game against each other; let's assume Player 1 and Player 2
     The game continues till Player 2 eventually is able to guess the number entirely.
     Now, Player 2 gets to set the number and Player 1 plays the part of guessing the number.
     If Player 1 is able to guess the number within a lesser number of tries than Player 2 took, then Player 1 wins the game and is crowned Mastermind. If not, then Player 2 wins the game.'''
-
-import random
-
-# Generates a secret number:
-def generate_secret_no():
+import os
+# Input digits:
+def input_digits():
     while True:
-        digits = int(input("Enter no. of digits: "))
+        digits = int(input("Enter number of digits:"))
         if digits <= 0:
-            print("Invalid Input! Please try again.")
+            print("Invalid! Enter valid number of digits!")
             continue
         break
-    min = 10 ** (digits - 1)
-    max = (10 ** digits) - 1
-    number = random.randint(min, max)
-    return number, digits
+    return digits
 
 # User Input:
-def input_from_user(digit):
-    number = input(f"Enter a number of {digit} digits: ")
+def input_from_user(digits):
+    while True:
+        number = input(f"Enter a number of {digits} digits: ")
+        if len(number) > digits and int(number) < 0:
+            print("Invalid input! Please try again...")
+            continue
+        break
+
     return int(number)
 
 # Guess the secret number:
@@ -33,6 +34,7 @@ def check_similar_digits(secret, user):
     secret_number_set = set(str(secret))
     user_number_set = set(str(user))
     correct_digits = secret_number_set.intersection(user_number_set)
+    
     return correct_digits
 
 # Check Result:
@@ -45,12 +47,36 @@ def no_of_rounds(secret, user):
         user = input_from_user(digit_in_number)
         
     return count + 1
-#Main Game:
-secret_number, digit_in_number = generate_secret_no()
-print(f"A {digit_in_number} digit number has been generated.")
 
-player_guess = input_from_user(digit_in_number)
+# Game Starts here:
+def play_game(digits):
+    secret_number = input_from_user(digits)
+    os.system('cls')
+    print("Secret number of {} digits is set. Start guessing the number...".format(digits))
+    guess = input_from_user(digit_in_number)
+    rounds = no_of_rounds(secret_number , guess)
+    
+    return rounds
 
-rounds = no_of_rounds(secret_number , player_guess)
+# Main:
+digit_in_number = input_digits()
+print("Player 1 will set the number and Player 2 will guess.")
+player_2 = play_game(digit_in_number)
 
-print(f"Player got the correct number in {rounds} rounds")
+print(f"Player 2 succeed in {player_2} round.")
+print("-"*50)
+
+if player_2 == 1:
+    print("Player 2 is crowned MASTERMIND !")
+else:
+    print("Player 2 will set the number and Player 1 will guess.")
+    player_1 = play_game(digit_in_number)
+    
+    print(f"Player 1 succeed in {player_1} round.")
+    print("-"*50)
+    if player_1 > player_2:
+        print(f"Player 1: {player_1} | Player 2: {player_2}\nPlayer 2 is crowned MASTERMIND !")
+    elif player_2 > player_1:
+        print(f"Player 1: {player_1} | Player 2: {player_2}\nPlayer 1 is crowned MASTERMIND !")
+    else:
+        print(f"Player 1: {player_1} | Player 2: {player_2}\nIt's a tie!")
