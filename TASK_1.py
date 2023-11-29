@@ -13,7 +13,7 @@ def input_digits():
     while True:
         digits = int(input("Enter number of digits:"))
         if digits <= 0:
-            print("Invalid! Enter valid number of digits!")
+            print("Invalid input! Enter a valid number.")
             continue
         break
     return digits
@@ -21,13 +21,13 @@ def input_digits():
 # User Input:
 def input_from_user(digits):
     while True:
-        number = input(f"Enter a number of {digits} digits: ")
-        if len(number) > digits and int(number) < 0:
+        number = int(input(f"Enter a number of {digits} digits: "))
+        if len(str(abs(number))) > digits:
             print("Invalid input! Please try again...")
             continue
         break
 
-    return int(number)
+    return number
 
 # Guess the secret number:
 def check_similar_digits(secret, user):
