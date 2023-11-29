@@ -8,13 +8,15 @@ import random
 
 action = ['rock', 'paper', 'scissors']
 
-
 #Get the input for user:
 def get_user_choice():
-    choice = input("Enter Your choice (rock/paper/scissors): ")
-    if choice not in action:
-        print("Invalid Choice!")
-        choice = get_user_choice()
+    while True:
+        choice = input("Enter Your choice (rock/paper/scissors): ").lower()
+        if choice not in action:
+            print("Invalid Choice!")
+            continue
+        break
+
     return choice.lower()
 
 #Get computer choice:
@@ -37,8 +39,10 @@ def play_game():
         if user_choice == com_choice:
             print("It's a tie !")
         elif (user_choice == 'rock' and com_choice == 'scissors') or (user_choice == 'paper' and com_choice == 'rock') or (user_choice == 'scissors' and com_choice == 'paper'):
+            print("Points for Player!")
             player_score+=1
         else:
+            print("Points for Computer!")
             com_score+=1
 
         print("Score: Player: {} | Computer: {}".format(player_score, com_score))
