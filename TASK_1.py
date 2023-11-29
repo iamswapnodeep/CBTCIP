@@ -7,6 +7,7 @@ Two players play the game against each other; let's assume Player 1 and Player 2
     The game continues till Player 2 eventually is able to guess the number entirely.
     Now, Player 2 gets to set the number and Player 1 plays the part of guessing the number.
     If Player 1 is able to guess the number within a lesser number of tries than Player 2 took, then Player 1 wins the game and is crowned Mastermind. If not, then Player 2 wins the game.'''
+
 import os
 # Input digits:
 def input_digits():
@@ -37,7 +38,7 @@ def check_similar_digits(secret, user):
     
     return correct_digits
 
-# Check Result:
+# Calculate the number of rounds player took:
 def no_of_rounds(secret, user):
     round = 0
     while secret != user:
@@ -48,7 +49,7 @@ def no_of_rounds(secret, user):
         
     return round + 1
 
-# Game Starts here:
+# Game starts for every player:
 def play_game(digits):
     secret_number = input_from_user(digits)
     os.system('cls')
