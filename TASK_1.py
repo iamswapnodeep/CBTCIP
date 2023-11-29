@@ -42,7 +42,7 @@ def no_of_rounds(secret, user):
     round = 0
     while secret != user:
         round += 1
-        similar_digits = check_similar_digits(secret, user)
+        similar_digits = check_similar_digits(abs(secret), abs(user))
         print(f"The correct digits are: {list(similar_digits)}")
         user = input_from_user(digit_in_number)
         
